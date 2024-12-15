@@ -3,10 +3,24 @@ import DefaultAuthCard from '@/components/Auths/DefaultAuthCard.vue'
 import InputGroup from '@/components/Auths/InputGroup.vue'
 import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import axios from 'axios';
+import { ref } from 'vue';
 
-import { ref } from 'vue'
+const pageTitle = ref('Sign In');
+const fd = new FormData()
+fd.append('username', 'admin@example.com');
+fd.append('password', 'iF+}0197');
 
-const pageTitle = ref('Sign In')
+const signIn = () => {
+  console.log('sign in')
+  try {
+    const response = axios.post('http://localhost:8000/api/v1/login/access-token', fd);
+    console.log(response)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 </script>
 
 <template>
@@ -57,9 +71,8 @@ const pageTitle = ref('Sign In')
           </svg>
         </InputGroup>
 
-        <div class="mb-5 mt-6">
+        <div class="mb-5 mt-6" @click="signIn">
           <input
-            type="submit"
             value="Sign In"
             class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
           />
