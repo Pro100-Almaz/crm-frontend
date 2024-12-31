@@ -14,7 +14,7 @@ fd.append('password', 'iF+}0197');
 const signIn = () => {
   console.log('sign in')
   try {
-    const response = axios.post('http://localhost:8000/api/v1/login/access-token', fd);
+    const response = axios.post('http://api.edify.kz/api/v1/login/access-token', fd);
     console.log(response)
   } catch (err) {
     console.log(err)
