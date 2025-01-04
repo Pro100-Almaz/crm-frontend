@@ -17,13 +17,13 @@ const signIn = async () => {
 
   try {
     await loginStore.login(formData)
-    console.log('Sign-in successful')
+    console.log('Sign-in successful');
   } catch (error) {
-    console.error('Sign-in failed', error)
+    console.error('Sign-in failed', error);
   }
 }
 
-const jwt = computed(() => loginStore.jwt)
+const jwt = computed(() => loginStore.jwt);
 </script>
 
 <template>
@@ -74,13 +74,12 @@ const jwt = computed(() => loginStore.jwt)
             </g>
           </svg>
         </InputGroup>
-        <div class="mb-5 mt-6">
-          <button
-            @click="signIn"
+        
+        <div class="mb-5 mt-6" @click="signIn">
+          <input
+            value="Sign In"
             class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
-          >
-            Sign in
-          </button>
+          />
         </div>
 
         <button
