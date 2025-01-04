@@ -3,23 +3,31 @@ import DefaultAuthCard from '@/components/Auths/DefaultAuthCard.vue'
 import InputGroup from '@/components/Auths/InputGroup.vue'
 import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
-import axios from 'axios';
-import { ref } from 'vue';
-
+import { ref, computed } from 'vue';
+import { useLogInStore } from '@/stores/auth';
+const loginStore = useLogInStore();
 const pageTitle = ref('Sign In');
-const fd = new FormData()
-fd.append('username', 'admin@example.com');
-fd.append('password', 'iF+}0197');
+const data = new FormData()
+data.append('username', 'admin@example.com');
+data.append('password', 'qwerty123');
 
-const signIn = () => {
-  console.log('sign in')
+const signIn = async () => {
+  const loginStore = useLogInStore();
+  const formData = new FormData();
+  formData.append('username', 'admin@example.com');
+  formData.append('password', 'qwerty123');
+
   try {
-    const response = axios.post('http://localhost:8000/api/v1/login/access-token', fd);
-    console.log(response)
-  } catch (err) {
-    console.log(err)
+    await loginStore.login(formData);
+    console.log('Sign-in successful');
+  } catch (error) {
+    console.error('Sign-in failed', error);
   }
-}
+};
+
+const jwt = computed(() => loginStore.jwt);
+
+
 
 </script>
 
@@ -28,6 +36,8 @@ const signIn = () => {
     <!-- Breadcrumb Start -->
     <BreadcrumbDefault :pageTitle="pageTitle" />
     <!-- Breadcrumb End -->
+
+    {{ jwt }} - adasnd,asmdnasmndan
 
     <DefaultAuthCard subtitle="Start for free" title="Sign In to TailAdmin">
       <form>

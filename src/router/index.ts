@@ -10,6 +10,8 @@ import FormLayoutView from '@/views/Forms/FormLayoutView.vue'
 import SettingsView from '@/views/Pages/SettingsView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import TablesView from '@/views/TablesView.vue'
+import CompanyView from '@/views/CompanyView.vue'
+import LeadsView from '@/views/LeadsView.vue'
 import AlertsView from '@/views/UiElements/AlertsView.vue'
 import ButtonsView from '@/views/UiElements/ButtonsView.vue'
 
@@ -60,6 +62,22 @@ const routes = [
     component: TablesView,
     meta: {
       title: 'Tables'
+    }
+  },
+  {
+    path: '/company',
+    name: 'company',
+    component: CompanyView,
+    meta: {
+      title: 'Company'
+    }
+  },
+  {
+    path: '/leads',
+    name: 'leads',
+    component: LeadsView,
+    meta: {
+      title: 'Leads'
     }
   },
   {
