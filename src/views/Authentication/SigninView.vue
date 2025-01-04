@@ -123,12 +123,6 @@ const jwt = computed(() => loginStore.jwt);
           Sign in with Google
         </button>
 
-        <div class="mt-6 text-center">
-          <p class="font-medium">
-            Don’t have any account?
-            <router-link to="/auth/signup" class="text-primary">Sign up</router-link>
-          </p>
-        </div>
       </form>
     </DefaultAuthCard>
   </DefaultLayout>
