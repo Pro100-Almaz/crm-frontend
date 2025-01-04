@@ -17,46 +17,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # Step 2: Set up SSH for accessing the server
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          node-version: 20  # Specify your Node.js version
-          cache: 'npm'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # Step 3: Install dependencies and build the Vue project
-      - name: Install dependencies and build
-        run: |
-          npm ci
-          npm run build
-
-      # Step 4: Log in to Docker Hub or GitHub Container Registry
-      - name: Log in to Docker Registry
-        uses: docker/login-action@v2
-        with:
-          registry: docker.io  # For Docker Hub; replace for other registries
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # Step 5: Build the Docker image
-      - name: Build Docker Image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/vue-frontend:latest .
-
-      # Step 6: Push the Docker image
-      - name: Push Docker Image
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/vue-frontend:latest
-
-      # Step 7: Deploy to remote server via SSH
-      - name: Deploy via SSH
+      # Step 3: Deploy via SSH
+      - name: Deploy Project
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/vue-frontend:latest
-            docker stop vue-frontend || true
-            docker rm vue-frontend || true
-            docker run -d --name vue-frontend -p 80:80 ${{ secrets.DOCKER_USERNAME }}/vue-frontend:latest
+            # Navigate to the parent directory where your docker-compose.yml is located
+            cd ~/edify/frontend
+            # Pull the latest changes
+            git pull origin master
+            # Build the updated Docker images
+            docker compose build
+            # Going back to project path
+            cd ..
+            # Restart the services with the new build
+            docker compose -f docker-compose.yml up -d
