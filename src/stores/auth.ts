@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { ref } from "vue";
+import router from "@/router";
 
 export const useLogInStore = defineStore("login", () => {
     const jwt = ref<string | null>(null); 
@@ -14,7 +15,7 @@ export const useLogInStore = defineStore("login", () => {
             if (jwt.value) {
                 sessionStorage.setItem("token", jwt.value);
             }
-            console.log(jwt)
+            router.push('/');
         }catch(err){
             console.log(err)
         }

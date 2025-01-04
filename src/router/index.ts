@@ -139,8 +139,17 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = `Vue.js ${to.meta.title} | TailAdmin - Vue.js Tailwind CSS Dashboard Template`
-  next()
-})
+  const token = sessionStorage.getItem('token'); 
+
+  const publicRoutes = ['/auth/signin', '/auth/signup'];
+
+  if (!token && !publicRoutes.includes(to.path)) {
+    return next('/auth/signin');
+  }
+
+  document.title = `Vue.js ${to.meta.title} | TailAdmin - Vue.js Tailwind CSS Dashboard Template`;
+  next();
+});
+
 
 export default router

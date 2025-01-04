@@ -3,41 +3,34 @@ import DefaultAuthCard from '@/components/Auths/DefaultAuthCard.vue'
 import InputGroup from '@/components/Auths/InputGroup.vue'
 import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
-import { ref, computed } from 'vue';
-import { useLogInStore } from '@/stores/auth';
-const loginStore = useLogInStore();
-const email = ref('');
-const password = ref('');
-const pageTitle = ref('Sign In');
+import { ref, computed } from 'vue'
+import { useLogInStore } from '@/stores/auth'
+const loginStore = useLogInStore()
+const email = ref('')
+const password = ref('')
+const pageTitle = ref('Sign In')
 const signIn = async () => {
-  const loginStore = useLogInStore();
-  const formData = new FormData();
-  formData.append('username', email.value);
-  formData.append('password', password.value);
+  const loginStore = useLogInStore()
+  const formData = new FormData()
+  formData.append('username', email.value)
+  formData.append('password', password.value)
 
   try {
-    await loginStore.login(formData);
-    console.log('Sign-in successful');
+    await loginStore.login(formData)
+    console.log('Sign-in successful')
   } catch (error) {
-    console.error('Sign-in failed', error);
+    console.error('Sign-in failed', error)
   }
-};
+}
 
-const jwt = computed(() => loginStore.jwt);
-
-
-
+const jwt = computed(() => loginStore.jwt)
 </script>
 
 <template>
-  <DefaultLayout>
-    <!-- Breadcrumb Start -->
-    <BreadcrumbDefault :pageTitle="pageTitle" />
-    <!-- Breadcrumb End -->
-
+  <div class="h-screen flex items-center justify-center">
     <DefaultAuthCard subtitle="Start for free" title="Sign In to TailAdmin">
       <form>
-        <InputGroup  v-model="email" label="Email" type="email" placeholder="Enter your email">
+        <InputGroup v-model="email" label="Email" type="email" placeholder="Enter your email">
           <svg
             class="fill-current"
             width="22"
@@ -55,7 +48,12 @@ const jwt = computed(() => loginStore.jwt);
           </svg>
         </InputGroup>
 
-        <InputGroup v-model="password" label="Password" type="password" placeholder="6+ Characters, 1 Capital letter">
+        <InputGroup
+          v-model="password"
+          label="Password"
+          type="password"
+          placeholder="6+ Characters, 1 Capital letter"
+        >
           <svg
             class="fill-current"
             width="22"
@@ -76,12 +74,13 @@ const jwt = computed(() => loginStore.jwt);
             </g>
           </svg>
         </InputGroup>
-
-        <div class="mb-5 mt-6" @click="signIn">
-          <input
-            value="Sign In"
+        <div class="mb-5 mt-6">
+          <button
+            @click="signIn"
             class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
-          />
+          >
+            Sign in
+          </button>
         </div>
 
         <button
@@ -122,14 +121,7 @@ const jwt = computed(() => loginStore.jwt);
           </span>
           Sign in with Google
         </button>
-
-        <div class="mt-6 text-center">
-          <p class="font-medium">
-            Don’t have any account?
-            <router-link to="/auth/signup" class="text-primary">Sign up</router-link>
-          </p>
-        </div>
       </form>
     </DefaultAuthCard>
-  </DefaultLayout>
+  </div>
 </template>
