@@ -9,15 +9,11 @@ const loginStore = useLogInStore();
 const email = ref('');
 const password = ref('');
 const pageTitle = ref('Sign In');
-const data = new FormData()
-data.append('username', email.value);
-data.append('password', password.value);
-
 const signIn = async () => {
   const loginStore = useLogInStore();
   const formData = new FormData();
-  formData.append('username', 'admin@example.com');
-  formData.append('password', 'qwerty123');
+  formData.append('username', email.value);
+  formData.append('password', password.value);
 
   try {
     await loginStore.login(formData);
