@@ -6,10 +6,12 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { ref, computed } from 'vue';
 import { useLogInStore } from '@/stores/auth';
 const loginStore = useLogInStore();
+const email = ref('');
+const password = ref('');
 const pageTitle = ref('Sign In');
 const data = new FormData()
-data.append('username', 'admin@example.com');
-data.append('password', 'qwerty123');
+data.append('username', email.value);
+data.append('password', password.value);
 
 const signIn = async () => {
   const loginStore = useLogInStore();
@@ -37,11 +39,9 @@ const jwt = computed(() => loginStore.jwt);
     <BreadcrumbDefault :pageTitle="pageTitle" />
     <!-- Breadcrumb End -->
 
-    {{ jwt }} - adasnd,asmdnasmndan
-
     <DefaultAuthCard subtitle="Start for free" title="Sign In to TailAdmin">
       <form>
-        <InputGroup label="Email" type="email" placeholder="Enter your email">
+        <InputGroup  v-model="email" label="Email" type="email" placeholder="Enter your email">
           <svg
             class="fill-current"
             width="22"
@@ -59,7 +59,7 @@ const jwt = computed(() => loginStore.jwt);
           </svg>
         </InputGroup>
 
-        <InputGroup label="Password" type="password" placeholder="6+ Characters, 1 Capital letter">
+        <InputGroup v-model="password" label="Password" type="password" placeholder="6+ Characters, 1 Capital letter">
           <svg
             class="fill-current"
             width="22"
