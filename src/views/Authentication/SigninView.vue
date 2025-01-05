@@ -77,6 +77,7 @@ const jwt = computed(() => loginStore.jwt);
         
         <div class="mb-5 mt-6" @click="signIn">
           <input
+            readonly
             value="Sign In"
             class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
           />
