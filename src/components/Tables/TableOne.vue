@@ -76,28 +76,28 @@ const brandData = ref([
       <!-- Header -->
       <div class="grid grid-cols-8 rounded-sm bg-gray-2 dark:bg-meta-4">
         <div class="p-2.5 xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">Name</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">Name</h5>
         </div>
         <div class="p-2.5 text-center xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">Visitors</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">Visitors</h5>
         </div>
         <div class="p-2.5 text-center xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">Revenues</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">Revenues</h5>
         </div>
         <div class="p-2.5 text-center xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">Sales</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">Sales</h5>
         </div>
         <div class="p-2.5 text-center xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">Conversion</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">Conversion</h5>
         </div>
         <div class="p-2.5 text-center xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">State</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">State</h5>
         </div>
         <div class="p-2.5 text-center xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">Owner</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">Owner</h5>
         </div>
         <div class="p-2.5 text-center xl:p-5">
-          <h5 class="text-sm font-medium uppercase xsm:text-base">Created Date</h5>
+          <h5 class="text-sm font-medium uppercase xsm:text-base dark:text-white">Created Date</h5>
         </div>
       </div>
 

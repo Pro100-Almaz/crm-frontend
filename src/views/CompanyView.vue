@@ -22,17 +22,17 @@ const closeBranchModal = () => {
 const saveNewBranch = (event: Event) => {
   event.preventDefault();  
   const sendData = {
-    name: branchName,
+    name: branchName.value,
     abbreviation: 'Основной филиал',
-    address: branchAddress,
-    time_zone: 'UTC+5:00',
+    address: branchAddress.value,
+    time_zone: 'UTC +5:00',
     group_id: 'd46d277b-98e7-434a-bea8-05dd1c684804',
     workdays: 'Monday,Tuesday,Wednesday,Thursday,Friday',
     holidays: 'Saturday,Sunday',
     work_hours: '9:00-18:00',
   }
   try{
-    const response = axios.post('https://api.edify.kz/api/v1/branches', sendData,       
+    const response = axios.post('https://75be-95-56-108-94.ngrok-free.app/api/v1/branches', sendData,       
       {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -59,7 +59,7 @@ const saveNewBranch = (event: Event) => {
             @click="activeTab = tab"
             class="flex-1 text-center py-2 px-4 text-md font-medium border-b-2"
             :class="{
-              'text-blue-600 border-blue-600': activeTab === tab,
+              'text-blue-600 border-blue-600 dark:text-white': activeTab === tab,
               'text-gray-600 border-transparent hover:text-gray-900': activeTab !== tab
             }"
           >
