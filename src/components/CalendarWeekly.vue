@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useCalendarStore } from '@/stores/calendarStore'
+
+const calendarStore = useCalendarStore()
+
 const today = new Date()
 const oneDay = new Date('December 21, 1995 03:24:00')
 const weekStart = new Date(today)

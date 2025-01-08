@@ -2,10 +2,10 @@ import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
 
-export const useSidebarStore = defineStore('calendar', () => {
-  const calendarType: Ref<String> = ref('week')
+export const useCalendarStore = defineStore('calendar', () => {
+  const calendarType: Ref<String> = ref('Week')
 
-  const renderedDate = ref(new Date())
+  const selectedDate = ref(new Date())
 
   const months = [
     { name: 'January', days: 31 },
@@ -22,9 +22,23 @@ export const useSidebarStore = defineStore('calendar', () => {
     { name: 'December', days: 31 }
   ]
 
-  const selectedType = (type: String) => {
+  const today = new Date()
+
+  const weekStart = new Date(today)
+
+  weekStart.setDate(today.getDate() - today.getDay())
+
+  const setCalendarType = (type: String) => {
     calendarType.value = type
   }
 
-  return { calendarType, selectedType, renderedDate }
+  const incrementDate = () => {
+    if (calendarType.value === 'Week') {
+      selectedDate.value.setDate(selectedDate.value.getDate() + 7)
+    } else if (calendarType.value === 'Month') {
+      selectedDate.value.setMonth(selectedDate.value.getMonth() + 1)
+    }
+  }
+
+  return { calendarType, setCalendarType, selectedDate, incrementDate }
 })
