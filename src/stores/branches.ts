@@ -43,7 +43,7 @@ export const useBranchStore = defineStore("branch", () => {
   const getBranchesList = async () => {
     try {
       const response = await axios.get(
-        "https://77d2-95-56-108-94.ngrok-free.app/api/v1/branches/branch_groups/"
+        "https://api.edify.kz/api/v1/branches/branch_groups/"
       );
       if (response.data && response.data.Status === "success") {
         branchGroups.value = response.data.groups; 
@@ -58,7 +58,7 @@ export const useBranchStore = defineStore("branch", () => {
   const getBranchesListData = async () => {
     try {
       const response = await axios.get(
-        "https://77d2-95-56-108-94.ngrok-free.app/api/v1/branches"
+        "https://api.edify.kz/api/v1/branches"
       );
       if (response.data && response.data.Status === "success") {
         branchLists.value = response.data.groups; 
