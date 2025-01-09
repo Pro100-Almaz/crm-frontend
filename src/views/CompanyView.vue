@@ -1,68 +1,72 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue'
-import TableOne from '@/components/Tables/TableOne.vue'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
-import axios from 'axios'
+import { ref, onMounted } from 'vue';
+import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue';
+import { useBranchStore } from '@/stores/branches';
+import TableOne from '@/components/Tables/TableOne.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import ModalComponent from '@/components/Modal/ModalComponent.vue';
+const branchStore = useBranchStore();
+const branchesList = ref([
+  { id: '30c5b91d-d96e-4d36-bc25-388a58ff99c3', name: 'Основной' },
+  { id: 'e572fda8-b32a-4147-a8ed-dd13c54ab2a3', name: 'Almaz test' },
+  { id: 'a06b65c4-2827-42a8-bd31-81ce60de2754', name: 'Almaz test2' },
+]);
 
-const pageTitle = ref('Calender')
-const tabs = ref(['Сотрудники', 'Филиалы'])
-const activeTab = ref('Сотрудники')
-const isBranchModalOpen = ref(false)
+const tabs = ref(['Сотрудники', 'Филиалы']);
+const activeTab = ref('Сотрудники');
+const isBranchModalOpen = ref(false);
 const branchName = ref('');
 const branchAddress = ref('');
+const selectedBranch = ref('');
+
+onMounted(async () => {
+  await branchStore.getBranchesList();
+  await branchStore.getBranchesListData();
+  if (branchStore.branchGroups.length !== 0) {
+    branchesList.value = branchStore.branchGroups
+  }
+});
+
 const openBranchModal = () => {
-  isBranchModalOpen.value = true
-}
+  isBranchModalOpen.value = true;
+};
 
 const closeBranchModal = () => {
-  isBranchModalOpen.value = false
-}
+  isBranchModalOpen.value = false;
+};
 
-const saveNewBranch = (event: Event) => {
-  event.preventDefault();  
+const saveNewBranch = async () => {
   const sendData = {
     name: branchName.value,
     abbreviation: 'Основной филиал',
     address: branchAddress.value,
     time_zone: 'UTC +5:00',
-    group_id: 'd46d277b-98e7-434a-bea8-05dd1c684804',
+    group_id: selectedBranch.value,
     workdays: 'Monday,Tuesday,Wednesday,Thursday,Friday',
     holidays: 'Saturday,Sunday',
     work_hours: '9:00-18:00',
+  };
+  try {
+    await branchStore.addNewBranch(sendData)
+    console.log('Sign-in successful');
+    isBranchModalOpen.value = false;
+  } catch (error) {
+    console.error('Sign-in failed', error);
   }
-  try{
-    const response = axios.post('https://75be-95-56-108-94.ngrok-free.app/api/v1/branches', sendData,       
-      {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      });
-
-    console.log(response);
-  }catch(error){
-    console.log(error)
-  }
-}
+};
 </script>
 
 <template>
   <DefaultLayout>
     <div class="mx-auto max-w-7xl">
       <div
-        class="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
-      >
+        class="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div class="flex border-b border-gray-200">
-          <button
-            v-for="tab in tabs"
-            :key="tab"
-            @click="activeTab = tab"
-            class="flex-1 text-center py-2 px-4 text-md font-medium border-b-2"
-            :class="{
+          <button v-for="tab in tabs" :key="tab" @click="activeTab = tab"
+            class="flex-1 text-center py-2 px-4 text-md font-medium border-b-2" :class="{
               'text-blue-600 border-blue-600 dark:text-white': activeTab === tab,
-              'text-gray-600 border-transparent hover:text-gray-900': activeTab !== tab
-            }"
-          >
+              'text-gray-600 border-transparent hover:text-gray-900': activeTab !== tab,
+            }">
             {{ tab }}
           </button>
         </div>
@@ -79,53 +83,34 @@ const saveNewBranch = (event: Event) => {
                 Добавить филиал
               </button>
             </header>
+            {{ branchStore.branchLists }}
           </div>
         </div>
       </div>
     </div>
 
     <!-- Modal -->
-    <div
-      v-if="isBranchModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-    >
-      <div class="bg-white rounded-lg p-6 w-1/3">
-        <h2 class="text-lg font-bold mb-4">Добавить филиал</h2>
-        <form>
-          <div class="mb-4">
-            <label for="branchName" class="block text-sm font-medium text-gray-700"
-              >Название филиала</label
-            >
-            <input
-              type="text"
-              id="branchName"
-              class="w-full p-2 border border-gray-300 rounded-md"
-              v-model="branchName"
-            />
-          </div>
-          <div class="mb-4">
-            <label for="branchName" class="block text-sm font-medium text-gray-700">Адрес</label>
-            <input
-              type="text"
-              id="branchName"
-              class="w-full p-2 border border-gray-300 rounded-md"
-              v-model="branchAddress"
-            />
-          </div>
-          <div class="flex justify-end gap-2">
-            <button
-              type="button"
-              @click="closeBranchModal"
-              class="bg-gray-500 text-white px-4 py-2 r ounded-md"
-            >
-              Отмена
-            </button>
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md" @click="saveNewBranch">
-              Сохранить
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+      <ModalComponent v-if="isBranchModalOpen" :title="'Добавить филиал'" :width="700" @close="closeBranchModal" @saveData="saveNewBranch">
+          <form @submit="saveNewBranch">
+            <div class="mb-4">
+              <label for="branchName" class="block text-sm font-medium text-gray-700">Название филиала</label>
+              <input type="text" id="branchName" class="w-full p-2 border border-gray-300 rounded-md"
+                v-model="branchName" />
+            </div>
+            <div class="mb-4">
+              <label for="branchAddress" class="block text-sm font-medium text-gray-700">Адрес</label>
+              <input type="text" id="branchAddress" class="w-full p-2 border border-gray-300 rounded-md"
+                v-model="branchAddress" />
+            </div>
+            <div class="mb-4">
+              <label for="selectedBranch" class="block text-sm font-medium text-gray-700">Выбрать филиал</label>
+              <select id="selectedBranch" class="w-full p-2 border border-gray-300 rounded-md" v-model="selectedBranch">
+                <option v-for="branch in branchesList" :key="branch.id" :value="branch.id">
+                  {{ branch.name }}
+                </option>
+              </select>
+            </div>
+          </form>
+      </ModalComponent>
   </DefaultLayout>
 </template>

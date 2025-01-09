@@ -2,13 +2,12 @@
 import DefaultAuthCard from '@/components/Auths/DefaultAuthCard.vue'
 import InputGroup from '@/components/Auths/InputGroup.vue'
 import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { ref, computed } from 'vue'
 import { useLogInStore } from '@/stores/auth'
-const loginStore = useLogInStore()
-const email = ref('')
-const password = ref('')
-const pageTitle = ref('Sign In')
+const loginStore = useLogInStore();
+const email = ref('');
+const password = ref('');
+const pageTitle = ref('Sign In');
 const signIn = async () => {
   const loginStore = useLogInStore()
   const formData = new FormData()
