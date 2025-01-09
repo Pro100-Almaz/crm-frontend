@@ -26,7 +26,7 @@ export const useBranchStore = defineStore("branch", () => {
   const addNewBranch = async (data: Branch) => {
     try {
       const response = await axios.post(
-        "https://api.edify.kz/api/v1/branches",
+        "https://api.edify.kz/api/v1/branches/",
         data,
         {
             headers: {
@@ -58,7 +58,7 @@ export const useBranchStore = defineStore("branch", () => {
   const getBranchesListData = async () => {
     try {
       const response = await axios.get(
-        "https://api.edify.kz/api/v1/branches"
+        "https://api.edify.kz/api/v1/branches/"
       );
       if (response.data && response.data.Status === "success") {
         branchLists.value = response.data.groups; 
