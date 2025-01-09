@@ -83,7 +83,34 @@ const saveNewBranch = async () => {
                 Добавить филиал
               </button>
             </header>
-            {{ branchStore.branchLists }}
+            <div class="overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-left text-sm text-gray-600">
+      <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
+        <tr>
+          <th class="border border-gray-200 px-4 py-2">ID</th>
+          <th class="border border-gray-200 px-4 py-2">Название</th>
+          <th class="border border-gray-200 px-4 py-2">Аббревиатура</th>
+          <th class="border border-gray-200 px-4 py-2">Адрес</th>
+          <th class="border border-gray-200 px-4 py-2">Часовой пояс</th>
+          <th class="border border-gray-200 px-4 py-2">Рабочие дни</th>
+          <th class="border border-gray-200 px-4 py-2">Выходные дни</th>
+          <th class="border border-gray-200 px-4 py-2">Рабочие часы</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="branch in branchStore.branchLists" :key="branch.id" class="hover:bg-gray-50">
+          <td class="border border-gray-200 px-4 py-2">{{ branch.id }}</td>
+          <td class="border border-gray-200 px-4 py-2">{{ branch.name }}</td>
+          <td class="border border-gray-200 px-4 py-2">{{ branch.abbreviation }}</td>
+          <td class="border border-gray-200 px-4 py-2">{{ branch.address }}</td>
+          <td class="border border-gray-200 px-4 py-2">{{ branch.time_zone }}</td>
+          <td class="border border-gray-200 px-4 py-2">{{ branch.workdays }}</td>
+          <td class="border border-gray-200 px-4 py-2">{{ branch.holidays }}</td>
+          <td class="border border-gray-200 px-4 py-2">{{ branch.work_hours }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
           </div>
         </div>
       </div>
