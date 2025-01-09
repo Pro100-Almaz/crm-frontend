@@ -61,7 +61,7 @@ export const useBranchStore = defineStore("branch", () => {
         "https://api.edify.kz/api/v1/branches/"
       );
       if (response.data && response.data.Status === "success") {
-        branchLists.value = response.data.groups; 
+        branchLists.value = response.data.branches; 
         console.log("Fetched branch groups:", branchGroups.value);
       } else {
         console.error("Unexpected API response:", response.data);
