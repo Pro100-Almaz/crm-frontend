@@ -60,13 +60,11 @@ export const useBranchStore = defineStore("branch", () => {
       const response = await axios.get(
         "https://api.edify.kz/api/v1/branches/"
       );
-      if (response.data && response.data.Status === "success") {
+      console.log(response)
         branchLists.value = response.data.branches; 
         console.log("Fetched branch groups:", branchGroups.value);
-      } else {
-        console.error("Unexpected API response:", response.data);
-      }
-    } catch (err) {
+      } 
+     catch (err) {
       console.error("Error fetching branch list:", err);
     }
   };
