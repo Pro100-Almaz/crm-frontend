@@ -10,7 +10,7 @@ export const useLogInStore = defineStore("login", () => {
     jwt,
     async login(data: FormData | Record<string, any>) {
         try{
-            const response = axios.post('https://api.edify.kz/api/v1/login/access-token', data);
+            const response = axios.post('https://77d2-95-56-108-94.ngrok-free.app/api/v1/login/access-token', data);
             jwt.value = (await response).data.access_token;
             if (jwt.value) {
                 sessionStorage.setItem("token", jwt.value);
