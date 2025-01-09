@@ -26,7 +26,7 @@ export const useBranchStore = defineStore("branch", () => {
   const addNewBranch = async (data: Branch) => {
     try {
       const response = await axios.post(
-        "https://77d2-95-56-108-94.ngrok-free.app/api/v1/branches",
+        "https://api.edify.kz/api/v1/branches",
         data,
         {
             headers: {
