@@ -47,9 +47,10 @@ const saveNewBranch = async () => {
     work_hours: '9:00-18:00'
   }
   try {
-    await branchStore.addNewBranch(sendData)
-    console.log('Sign-in successful')
-    isBranchModalOpen.value = false
+    await branchStore.addNewBranch(sendData);
+    console.log('Sign-in successful');
+    await branchStore.getBranchesListData();
+    isBranchModalOpen.value = false;
   } catch (error) {
     console.error('Sign-in failed', error)
   }
