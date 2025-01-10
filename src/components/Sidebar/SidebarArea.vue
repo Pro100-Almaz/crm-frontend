@@ -359,7 +359,7 @@ const menuGroups = ref([
 
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
       <!-- Sidebar Menu -->
-      <nav class="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
+      <nav class="py-4 px-4 lg:px-6">
         <template v-for="menuGroup in menuGroups" :key="menuGroup.name">
           <div>
             <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">{{ menuGroup.name }}</h3>
