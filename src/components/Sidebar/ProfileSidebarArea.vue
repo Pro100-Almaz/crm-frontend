@@ -78,8 +78,6 @@ const menuGroups = ref([
       <nav class="py-4 px-4 lg:px-6">
         <template v-for="menuGroup in menuGroups" :key="menuGroup.name">
           <div>
-            <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">{{ menuGroup.name }}</h3>
-
             <ul class="mb-6 flex flex-col gap-1.5">
               <SidebarItem
                 v-for="(menuItem, index) in menuGroup.menuItems"
