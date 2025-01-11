@@ -14,6 +14,7 @@ import CompanyView from '@/views/CompanyView.vue'
 import LeadsView from '@/views/LeadsView.vue'
 import AlertsView from '@/views/UiElements/AlertsView.vue'
 import ButtonsView from '@/views/UiElements/ButtonsView.vue'
+import ChatView from '@/views/ChatView.vue'
 
 const routes = [
   {
@@ -102,6 +103,14 @@ const routes = [
     component: LeadsView,
     meta: {
       title: 'Leads'
+    }
+  },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: ChatView,
+    meta: {
+      title: 'Chat'
     }
   },
   {
