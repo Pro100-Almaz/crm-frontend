@@ -41,6 +41,30 @@ const routes = [
     }
   },
   {
+    path: '/profile/personal',
+    name: 'personalInformation',
+    component: ProfileView,
+    meta: {
+      title: 'Profile'
+    }
+  },
+  {
+    path: '/profile/usersemails',
+    name: 'profileUsersEmails',
+    component: ProfileView,
+    meta: {
+      title: 'Profile'
+    }
+  },
+  {
+    path: '/profile/phonenumber',
+    name: 'profilePhoneNumber',
+    component: ProfileView,
+    meta: {
+      title: 'Profile'
+    }
+  },
+  {
     path: '/forms/form-elements',
     name: 'formElements',
     component: FormElementsView,
