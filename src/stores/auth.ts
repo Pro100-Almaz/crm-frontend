@@ -10,10 +10,10 @@ export const useLogInStore = defineStore("login", () => {
     jwt,
     async login(data: FormData | Record<string, any>) {
         try{
-            // const response = axios.post('https://api.edify.kz/api/v1/login/access-token', data);
+            const response = axios.post('https://api.edify.kz/api/v1/login/access-token', data);
             // const response = axios.post('http://127.0.0.1:8000/api/v1/login/access-token', data);
-            // jwt.value = (await response).data.access_token;
-            jwt.value = "Some random value"
+            jwt.value = (await response).data.access_token;
+            // jwt.value = "Some random value"
             if (jwt.value) {
                 sessionStorage.setItem("token", jwt.value);
             }
