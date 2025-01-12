@@ -9,7 +9,7 @@
         <div class="flex items-center">
         <div class="mr-4.5 h-13 w-full max-w-13 overflow-hidden rounded-full">
             <img
-                src="./src/assets/images/user/user-14.png"
+                src="../../assets/images/user/user-03.png"
             alt="avatar"
             class="h-full w-full object-cover object-center"
             />
