@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
   <div class="flex max-h-full flex-col overflow-auto p-5">
     <form class="sticky mb-7">
