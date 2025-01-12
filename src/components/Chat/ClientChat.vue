@@ -1,12 +1,11 @@
-<script setup>
-import ChatList from './ChatList.vue';
-import ChatHeader from './ChatHeader.vue';
-import MessageBox from './MessageBox.vue';
-
+<script setup lang="ts">
+import ChatList from '@/components/Chat/ChatList.vue'
+import MessageBox from './MessageBox.vue'
+import ChatHeader from '../Chat/ChatHeader.vue'
 const author = "John Doe";
 const parentMessage = "Hello from Parent";
 const time = "12:21PM";
-const isClient = true;
+const isClient = 'client';
 </script>
 
 <template>
