@@ -1,35 +1,31 @@
 <script setup lang="ts">
-const today = new Date()
-const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1)
-const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+import { computed } from 'vue'
+import { useCalendarStore } from '@/stores/calendarStore'
 
-const startDay = new Date(firstDayOfMonth)
-startDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay())
+const calendarStore = useCalendarStore()
 
-const endDay = new Date(lastDayOfMonth)
-endDay.setDate(lastDayOfMonth.getDate() + (6 - lastDayOfMonth.getDay()))
+const today = computed(() => calendarStore.selectedDate)
+const monthDays = computed(() => {
+  const firstDayOfMonth = new Date(today.value.getFullYear(), today.value.getMonth(), 1)
+  const lastDayOfMonth = new Date(today.value.getFullYear(), today.value.getMonth() + 1, 0)
 
-const monthDays: any[] = []
-for (let date = new Date(startDay); date <= endDay; date.setDate(date.getDate() + 1)) {
-  monthDays.push(new Date(date))
-}
+  const startDay = new Date(firstDayOfMonth)
+  startDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay())
+
+  const endDay = new Date(lastDayOfMonth)
+  endDay.setDate(lastDayOfMonth.getDate() + (6 - lastDayOfMonth.getDay()))
+
+  const days = []
+  for (let date = new Date(startDay); date <= endDay; date.setDate(date.getDate() + 1)) {
+    days.push(new Date(date))
+  }
+  return days
+})
 
 const events = [
-  {
-    id: 1,
-    name: 'dinner',
-    start: new Date(today.getFullYear(), 0, 30)
-  },
-  {
-    id: 2,
-    name: 'lunch',
-    start: new Date(today.getFullYear(), 0, 7)
-  },
-  {
-    id: 3,
-    name: 'meeting',
-    start: new Date(today.getFullYear(), 0, 7)
-  }
+  { id: 1, name: 'dinner', start: new Date(today.value.getFullYear(), 0, 30) },
+  { id: 2, name: 'lunch', start: new Date(today.value.getFullYear(), 0, 7) },
+  { id: 3, name: 'lunch', start: new Date(2025, 0, 13) }
 ]
 
 const isToday = (date: Date) => {
