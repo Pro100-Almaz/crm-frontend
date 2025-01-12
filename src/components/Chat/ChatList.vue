@@ -37,7 +37,7 @@
       >
         <div class="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
           <img
-            src="./src/assets/images/user/user-03.png"
+            src="../../assets/images/user/user-03.png"
             alt="profile"
             class="h-full w-full object-cover object-center"
           /><span
@@ -54,7 +54,7 @@
       >
         <div class="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
           <img
-            src="./src/assets/images/user/user-03.png"
+            src="../../assets/images/user/user-03.png"
             alt="profile"
             class="h-full w-full object-cover object-center"
           /><span
@@ -71,7 +71,7 @@
       >
         <div class="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
           <img
-            src="./src/assets/images/user/user-14.png"
+            src="../../assets/images/user/user-03.png"
             alt="profile"
             class="h-full w-full object-cover object-center"
           /><span
@@ -88,7 +88,7 @@
       >
         <div class="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
           <img
-            src="./src/assets/images/user/user-14.png"
+            src="../../assets/images/user/user-03.png"
             alt="profile"
             class="h-full w-full object-cover object-center"
           /><span
@@ -105,7 +105,7 @@
       >
         <div class="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
           <img
-            src="./src/assets/images/user/user-14.png"
+            src="../../assets/images/user/user-03.png"
             alt="profile"
             class="h-full w-full object-cover object-center"
           /><span
