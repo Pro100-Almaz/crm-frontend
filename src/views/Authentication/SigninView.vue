@@ -7,13 +7,11 @@ import { useLogInStore } from '@/stores/auth'
 const loginStore = useLogInStore();
 const email = ref('');
 const password = ref('');
-const pageTitle = ref('Sign In');
 const signIn = async () => {
   const loginStore = useLogInStore()
   const formData = new FormData()
   formData.append('username', email.value)
   formData.append('password', password.value)
-
   try {
     await loginStore.login(formData)
     console.log('Sign-in successful');
