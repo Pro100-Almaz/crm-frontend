@@ -5,6 +5,7 @@ import router from "@/router";
 
 export const useLogInStore = defineStore("login", () => {
     const jwt = ref<string | null>(null); 
+    const almazNickname = "AlmazA"
 
   return {
     jwt,
@@ -12,6 +13,7 @@ export const useLogInStore = defineStore("login", () => {
         try{
             const response = axios.post('https://api.edify.kz/api/v1/login/access-token', data);
             jwt.value = (await response).data.access_token;
+            // jwt.value = "1234"
             if (jwt.value) {
                 sessionStorage.setItem("token", jwt.value);
             }
