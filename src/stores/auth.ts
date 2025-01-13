@@ -5,6 +5,7 @@ import router from "@/router";
 
 export const useLogInStore = defineStore("login", () => {
     const jwt = ref<string | null>(null); 
+    const qanatNickname = "QanatBaibatyr"
 
   return {
     jwt,
