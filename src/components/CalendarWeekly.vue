@@ -1,35 +1,29 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted, watch } from 'vue'
+
 import { useCalendarStore } from '@/stores/calendarStore'
+import CalendarModal from './Calendar/CalendarModal.vue'
+
+interface Event {
+  id: number
+  name: string
+  start: Date
+  end: Date
+}
 
 const calendarStore = useCalendarStore()
 
+const gridDate = ref('')
+const gridTime = ref('')
+
 const weekStart = computed(() => {
-  const currentDate = new Date(calendarStore.selectedDate)
+  const currentDate = new Date(calendarStore.selectedDate.setHours(0, 0))
   const dayOffset = currentDate.getDay()
+
   return new Date(currentDate.setDate(currentDate.getDate() - dayOffset))
 })
 
-const events = [
-  {
-    id: 1,
-    name: 'Meeting',
-    start: new Date(2025, 0, 14, 8, 0, 0, 0),
-    end: new Date(2025, 0, 14, 9, 0, 0, 0)
-  },
-  {
-    id: 2,
-    name: 'Dinner',
-    start: new Date(new Date().setHours(19, 0, 0, 0)),
-    end: new Date(new Date().setHours(20, 0, 0, 0))
-  },
-  {
-    id: 3,
-    name: 'Workout',
-    start: new Date(2025, 0, 13, 8, 0, 0, 0),
-    end: new Date(2025, 0, 13, 9, 0, 0, 0)
-  }
-]
+const events = ref<Event[]>([])
 
 const weekDays = computed(() =>
   Array.from({ length: 7 }, (_, i) => {
@@ -39,7 +33,9 @@ const weekDays = computed(() =>
     return {
       day: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()],
       date: date,
-      events: events.filter((event) => date.toDateString() === new Date(event.start).toDateString())
+      events: events.value.filter(
+        (event) => date.toDateString() === new Date(event.start).toDateString()
+      )
     }
   })
 )
@@ -65,6 +61,32 @@ const getEventStyle = (event: any) => {
     right: '0.5rem'
   }
 }
+
+const clickOnGrid = (day: Date, hour: string) => {
+  calendarStore.isModalOpen = true
+  gridDate.value = day.toString()
+  gridTime.value = hour
+}
+
+onMounted(async () => {
+  const fetchedEvents = await calendarStore.fetchEvents()
+  if (fetchedEvents !== null) {
+    events.value = fetchedEvents
+  } else {
+    console.log('No events found')
+  }
+})
+watch(
+  () => calendarStore.selectedDate,
+  async () => {
+    const fetchedEvents = await calendarStore.fetchEvents()
+    if (fetchedEvents !== null) {
+      events.value = fetchedEvents
+    } else {
+      console.log('No events found')
+    }
+  }
+)
 </script>
 <template>
   <div class="weekly-calendar w-full border-2 rounded-md mx-auto">
@@ -94,15 +116,12 @@ const getEventStyle = (event: any) => {
         </div>
       </div>
 
-      <div
-        v-for="day in weekDays"
-        :key="day.date.toISOString()"
-        class="border-l border-gray-300 relative"
-      >
+      <div v-for="day in weekDays" :key="day.date.toISOString()" class="border-l border-gray-300">
         <div
           v-for="hour in Array.from({ length: 24 }, (_, i) => i)"
           :key="hour"
           class="h-16 border-b border-gray-300"
+          @click="clickOnGrid(day.date, String(hour))"
         ></div>
 
         <div
@@ -114,6 +133,7 @@ const getEventStyle = (event: any) => {
           {{ event.name }}
         </div>
       </div>
+      <CalendarModal v-if="calendarStore.isModalOpen" :date="gridDate" :time="gridTime" />
     </div>
   </div>
 </template>

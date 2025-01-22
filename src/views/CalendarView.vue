@@ -14,7 +14,7 @@ const pageTitle = ref('Calender')
 
 <template>
   <DefaultLayout>
-    <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-7xl relative">
       <!-- Breadcrumb Start -->
       <BreadcrumbDefault :pageTitle="pageTitle" />
       <CalendarHeader />
