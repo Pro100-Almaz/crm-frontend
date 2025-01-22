@@ -10,12 +10,6 @@ import ModalComponent from '@/components/Modal/ModalComponent.vue'
 const userStore = useUserDataStore();
 const branchStore = useBranchStore();
 const branchGroupsStore = useBranchGroupStore();
-const branchesList = ref([
-  { id: '30c5b91d-d96e-4d36-bc25-388a58ff99c3', name: 'Основной' },
-  { id: 'e572fda8-b32a-4147-a8ed-dd13c54ab2a3', name: 'Almaz test' },
-  { id: 'a06b65c4-2827-42a8-bd31-81ce60de2754', name: 'Almaz test2' }
-])
-
 const tabs = ref(['Сотрудники', 'Филиалы'])
 const activeTab = ref('Сотрудники')
 const isBranchModalOpen = ref(false);
@@ -32,11 +26,7 @@ const password = ref('');
 onMounted(async () => {
   await branchStore.getBranchesList()
   await branchStore.getBranchesListData()
-  if (branchStore.branchGroups.length !== 0) {
-    branchesList.value = branchStore.branchGroups
-  }
   await userStore.getUserData();
-
 })
 
 const openBranchModal = () => {
@@ -85,6 +75,7 @@ const saveNewBranchGroup = async () => {
   try {
     await branchGroupsStore.addNewBranchGroup(branchGroupName.value);
     console.log('Branch Group added');
+    await branchStore.getBranchesList()
     isBranchGroupModalOpen.value = false;
   } catch (error) {
     console.error('Branch Group failed', error)
@@ -212,7 +203,7 @@ const saveNewUser = async () => {
         <div class="mb-4">
           <label for="selectedBranch" class="block text-sm font-medium text-gray-700">Выбрать сеть</label>
           <select id="selectedBranch" class="w-full p-2 border border-gray-300 rounded-md" v-model="selectedBranch">
-            <option v-for="branch in branchesList" :key="branch.id" :value="branch.id">
+            <option v-for="branch in branchStore.branchGroups" :key="branch.id" :value="branch.id">
               {{ branch.name }}
             </option>
           </select>
