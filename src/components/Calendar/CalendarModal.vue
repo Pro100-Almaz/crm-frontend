@@ -93,7 +93,6 @@ const closeModal = () => {
   <section class="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-50">
     <div
       class="w-100 flex items-center justify-center rounded-md border flex-col shadow-md bg-white text-primary gap-5"
-      @click.stop="closeModal"
       :style="{ transform: `translate(${modalPosition.x}px, ${modalPosition.y}px)` }"
     >
       <div class="w-full bg-gray-300 rounded-t-md h-5 cursor-pointer" @mousedown="startDrag">
